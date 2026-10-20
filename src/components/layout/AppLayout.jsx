@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useWatchlist } from '../../hooks/useWatchlist';
 import Icon from '../ui/Icon';
+import { applyTheme, getTheme } from '../../theme';
 const links = [
   { to: '/', label: 'Dashboard', icon: 'dashboard' },
   { to: '/markets', label: 'Markets', icon: 'markets' },
@@ -9,7 +10,8 @@ const links = [
 ];
 export default function AppLayout() {
   const [menuOpen, setMenuOpen] = useState(false),
-    [search, setSearch] = useState('');
+    [search, setSearch] = useState(''),
+    [theme, setTheme] = useState(getTheme);
   const { ids } = useWatchlist();
   const location = useLocation(),
     navigate = useNavigate(),
@@ -24,6 +26,9 @@ export default function AppLayout() {
         : location.pathname.startsWith('/coin/')
           ? 'Coin details'
           : 'Dashboard';
+  useEffect(() => {
+    applyTheme(theme);
+  }, [theme]);
   useEffect(() => {
     setMenuOpen(false);
     window.scrollTo(0, 0);
@@ -172,6 +177,16 @@ export default function AppLayout() {
                 Search
               </button>
             </form>
+            <button
+              type="button"
+              className="theme-toggle"
+              aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+              title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+              onClick={() => setTheme((current) => (current === 'light' ? 'dark' : 'light'))}
+            >
+              <Icon name={theme === 'light' ? 'moon' : 'sun'} size={17} />
+              <span className="theme-toggle-label">{theme === 'light' ? 'Dark' : 'Light'}</span>
+            </button>
             <span className="data-status">
               <span />
               Demo mode

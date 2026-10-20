@@ -40,7 +40,7 @@ export default function PriceChart({ coin, detail = false }) {
   const min = Math.min(...data.map((d) => d.price)),
     max = Math.max(...data.map((d) => d.price));
   const span = max - min || coin.price * 0.01;
-  const color = gain >= 0 ? '#56e3b0' : '#f07883';
+  const color = gain >= 0 ? 'var(--chart-rise)' : 'var(--chart-fall)';
   const [scale, setScale] = useState('linear');
   return (
     <section
@@ -113,7 +113,7 @@ export default function PriceChart({ coin, detail = false }) {
                 <stop offset="100%" stopColor={color} stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid vertical={false} stroke="#272b2e" strokeDasharray="3 5" />
+            <CartesianGrid vertical={false} stroke="var(--chart-grid)" strokeDasharray="3 5" />
             <XAxis
               dataKey="timestamp"
               type="number"
@@ -122,7 +122,7 @@ export default function PriceChart({ coin, detail = false }) {
               axisLine={false}
               minTickGap={48}
               tickCount={6}
-              tick={{ fill: '#88918f', fontSize: 12 }}
+              tick={{ fill: 'var(--chart-tick)', fontSize: 12 }}
               dy={10}
               tickFormatter={(n) =>
                 period === '24H'
@@ -147,11 +147,11 @@ export default function PriceChart({ coin, detail = false }) {
               axisLine={false}
               tickCount={5}
               width={coin.price < 0.01 ? 94 : 64}
-              tick={{ fill: '#88918f', fontSize: 12 }}
+              tick={{ fill: 'var(--chart-tick)', fontSize: 12 }}
             />
             <Tooltip
               content={<ChartTooltip />}
-              cursor={{ stroke: '#6b7c74', strokeDasharray: '4 4' }}
+              cursor={{ stroke: 'var(--chart-cursor)', strokeDasharray: '4 4' }}
             />
             <ReferenceLine
               y={coin.price}
@@ -166,7 +166,7 @@ export default function PriceChart({ coin, detail = false }) {
               strokeWidth={2}
               fill={`url(#${gradientId})`}
               isAnimationActive={false}
-              activeDot={{ r: 5, fill: color, stroke: '#12241d', strokeWidth: 4 }}
+              activeDot={{ r: 5, fill: color, stroke: 'var(--chart-dot-ring)', strokeWidth: 4 }}
             />
           </AreaChart>
         </ResponsiveContainer>
