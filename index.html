@@ -2,6 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <script>
+      // Apply the saved theme before React loads to prevent a theme flash.
+      try {
+        document.documentElement.dataset.theme =
+          localStorage.getItem('cryptopulse-theme') === 'dark' ? 'dark' : 'light';
+      } catch {
+        document.documentElement.dataset.theme = 'light';
+      }
+    </script>
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <meta name="theme-color" content="#0c0e10" />
     <meta

@@ -22,6 +22,8 @@ import {
   Coins,
   PanelLeftClose,
   Command,
+  Sun,
+  Moon,
 } from 'lucide-react';
 const icons = {
   activity: Activity,
@@ -48,6 +50,8 @@ const icons = {
   coins: Coins,
   collapse: PanelLeftClose,
   command: Command,
+  sun: Sun,
+  moon: Moon,
 };
 export default function Icon({ name, size = 18, ...props }) {
   const Component = icons[name] || Activity;
