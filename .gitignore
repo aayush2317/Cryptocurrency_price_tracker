@@ -221,3 +221,7 @@ dist/
 .sites-runtime/
 .env
 *.local
+
+# Allow lib directory for application database helpers
+!lib/
+!lib/**
