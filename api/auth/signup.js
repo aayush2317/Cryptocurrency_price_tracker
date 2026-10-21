@@ -49,6 +49,12 @@ export default async function handler(req, res) {
     const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
     await createSession(user.id, token, expiresAt);
 
+    // Problem 5: Set secure HttpOnly session cookie
+    res.setHeader(
+      'Set-Cookie',
+      `cryptopulse_session=${token}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=2592000`
+    );
+
     return res.status(201).json({
       success: true,
       message: 'Account created successfully.',

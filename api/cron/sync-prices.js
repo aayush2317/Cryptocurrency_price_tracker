@@ -2,16 +2,20 @@
 // ─────────────────────────────────────────────────────────────
 //  GET /api/cron/sync-prices
 //  Vercel Cron endpoint to fetch live prices from CoinGecko
-//  Protected by CRON_SECRET header
+//  Strictly protected by CRON_SECRET header
 // ─────────────────────────────────────────────────────────────
 
 import { syncPrices } from '../../lib/syncPrices.js';
 
 export default async function handler(req, res) {
-  // Verify authorization if CRON_SECRET is configured
+  const expectedSecret = process.env.CRON_SECRET;
   const authHeader = req.headers.authorization;
-  if (process.env.CRON_SECRET && authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-    return res.status(401).json({ error: 'Unauthorized cron request' });
+
+  // Problem 4 fix: Always require authorization with configured CRON_SECRET
+  if (!expectedSecret || authHeader !== `Bearer ${expectedSecret}`) {
+    return res.status(401).json({
+      error: 'Unauthorized: valid CRON_SECRET Bearer token is required to invoke synchronization.',
+    });
   }
 
   try {
