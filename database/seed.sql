@@ -1,21 +1,20 @@
 -- =============================================================
---  CRYPTOPULSE  –  Seed Data  v2.0
---  16 assets (2 pages × 8)  +  categories  +  portfolio sample
+--  CRYPTOPULSE  –  Seed Data  v3.0
+--  16 coins matching src/data/coins.js exactly + Demo User + Candles
 -- =============================================================
 
--- ─── Demo User ────────────────────────────────────────────────
-INSERT INTO users (id, email, username, display_name, theme, demo_mode, currency)
+-- ─── 1. Demo User (password is 'password123') ────────────────
+INSERT INTO users (id, name, email, password_hash, theme, demo_mode)
 VALUES (
     'aaaaaaaa-0000-0000-0000-000000000001',
+    'Aayush',
     'demo@cryptopulse.app',
-    'AY',
-    'Demo User',
+    '$2a$10$1Y8jIqCg2J1rFk8N2h8vqu8OaD1t3qJ7gQ1h3y4z5a6b7c8d9e0f1', -- bcrypt hash of password123
     'light',
-    TRUE,
-    'USD'
+    TRUE
 ) ON CONFLICT (email) DO NOTHING;
 
--- ─── Default Workspace ────────────────────────────────────────
+-- ─── 2. Default Workspace ────────────────────────────────────
 INSERT INTO workspaces (id, user_id, name, is_default)
 VALUES (
     'bbbbbbbb-0000-0000-0000-000000000001',
@@ -24,206 +23,103 @@ VALUES (
     TRUE
 ) ON CONFLICT DO NOTHING;
 
--- ─── 16 Crypto Assets with categories ────────────────────────
---  category_id: 1=layer1, 2=layer2, 3=stablecoin, 4=defi,
---               5=meme, 6=exchange, 7=gaming, 8=ai
+-- ─── 3. The 16 Crypto Assets (src/data/coins.js alignment) ───
 INSERT INTO assets
-    (id, coingecko_id, symbol, name, logo_url, large_logo_url, rank, category_id,
-     circulating_supply, max_supply, website_url, description)
+    (id, slug, symbol, name, rank, category, color_hex,
+     circulating_supply, max_supply, ath, description)
 VALUES
-  ('a0000001-0000-0000-0000-000000000001',
-   'bitcoin',       'BTC',  'Bitcoin',
-   'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png',
-   'https://assets.coingecko.com/coins/images/1/large/bitcoin.png',
-   1, 1, 19500000, 21000000, 'https://bitcoin.org',
-   'The first and largest cryptocurrency by market capitalisation.'),
+  ('a0000001-0000-0000-0000-000000000001', 'bitcoin',   'BTC',  'Bitcoin',         1,  'Layer 1',     '#f7931a', 19800000,        21000000,        73750.07,   'Bitcoin is a decentralized digital currency with a fixed maximum supply of 21 million coins.'),
+  ('a0000002-0000-0000-0000-000000000002', 'ethereum',  'ETH',  'Ethereum',        2,  'Layer 1',     '#8494ed', 120163000,       NULL,            4878.26,    'Ethereum is a decentralized blockchain platform for smart contracts and applications.'),
+  ('a0000003-0000-0000-0000-000000000003', 'tether',    'USDT', 'Tether',          3,  'Stablecoins', '#26a17b', 112457508498,   NULL,            1.32,       'USD-pegged stablecoin issued by Tether.'),
+  ('a0000004-0000-0000-0000-000000000004', 'bnb',       'BNB',  'BNB',             4,  'Layer 1',     '#f3ba2f', 147622092,       200000000,       717.48,     'BNB powers the BNB Chain ecosystem and trading fee discounts.'),
+  ('a0000005-0000-0000-0000-000000000005', 'solana',    'SOL',  'Solana',          5,  'Layer 1',     '#a88bf5', 461066759,       NULL,            259.96,     'Solana is a blockchain designed for fast transactions and decentralized applications.'),
+  ('a0000006-0000-0000-0000-000000000006', 'usd-coin',  'USDC', 'USDC',            6,  'Stablecoins', '#2775ca', 32623262326,     NULL,            1.17,       'USDC is a fully-reserved digital dollar pegged to the US dollar.'),
+  ('a0000007-0000-0000-0000-000000000007', 'xrp',       'XRP',  'XRP',             7,  'Layer 1',     '#dce0e5', 55374716124,     100000000000,    3.84,       'XRP is the native token of the XRP Ledger for fast, low-cost cross-border payments.'),
+  ('a0000008-0000-0000-0000-000000000008', 'dogecoin',  'DOGE', 'Dogecoin',        8,  'Meme coins',  '#c5a456', 145326774420,    NULL,            0.7316,     'Dogecoin is the original open-source peer-to-peer cryptocurrency inspired by a meme.'),
+  ('a0000009-0000-0000-0000-000000000009', 'toncoin',   'TON',  'Toncoin',         9,  'Layer 1',     '#0098ea', 2431754875,      NULL,            8.25,       'Toncoin is the native cryptocurrency of The Open Network (TON).'),
+  ('a0000010-0000-0000-0000-000000000010', 'cardano',   'ADA',  'Cardano',         10, 'Layer 1',     '#3777e5', 35644876325,     45000000000,     3.10,       'Cardano is a proof-of-stake blockchain platform built on peer-reviewed research.'),
+  ('a0000011-0000-0000-0000-000000000011', 'avalanche', 'AVAX', 'Avalanche',       11, 'Layer 1',     '#e84142', 392660044,       720000000,       144.96,     'Avalanche is an umbrella platform for launching decentralized finance applications.'),
+  ('a0000012-0000-0000-0000-000000000012', 'chainlink', 'LINK', 'Chainlink',       12, 'DeFi',        '#2a5ada', 608305274,       1000000000,      52.88,      'Chainlink is a decentralized oracle network that provides real-world data to smart contracts.'),
+  ('a0000013-0000-0000-0000-000000000013', 'polkadot',  'DOT',  'Polkadot',        13, 'Layer 1',     '#e6007a', 1436137071,      NULL,            54.98,      'Polkadot facilitates multi-chain transfers of any data or asset.'),
+  ('a0000014-0000-0000-0000-000000000014', 'uniswap',   'UNI',  'Uniswap',         14, 'DeFi',        '#ff65bd', 599243856,       1000000000,      44.92,      'Uniswap is a popular decentralized trading protocol.'),
+  ('a0000015-0000-0000-0000-000000000015', 'near',      'NEAR', 'NEAR Protocol',   15, 'Layer 1',     '#b8ebd1', 1090643275,      NULL,            20.44,      'NEAR Protocol is a layer-one blockchain designed as a community-run cloud.'),
+  ('a0000016-0000-0000-0000-000000000016', 'pepe',      'PEPE', 'Pepe',            16, 'Meme coins',  '#70ad51', 420608108108108, 420690000000000, 0.00001717, 'Pepe is a deflationary memecoin launched on Ethereum.')
+ON CONFLICT (slug) DO UPDATE SET
+  name = EXCLUDED.name,
+  symbol = EXCLUDED.symbol,
+  rank = EXCLUDED.rank,
+  category = EXCLUDED.category,
+  color_hex = EXCLUDED.color_hex,
+  circulating_supply = EXCLUDED.circulating_supply,
+  max_supply = EXCLUDED.max_supply,
+  ath = EXCLUDED.ath;
 
-  ('a0000002-0000-0000-0000-000000000002',
-   'ethereum',      'ETH',  'Ethereum',
-   'https://assets.coingecko.com/coins/images/279/thumb/ethereum.png',
-   'https://assets.coingecko.com/coins/images/279/large/ethereum.png',
-   2, 1, 120250000, NULL, 'https://ethereum.org',
-   'Programmable blockchain powering DeFi and NFTs.'),
-
-  ('a0000003-0000-0000-0000-000000000003',
-   'tether',        'USDT', 'Tether',
-   'https://assets.coingecko.com/coins/images/325/thumb/Tether.png',
-   'https://assets.coingecko.com/coins/images/325/large/Tether.png',
-   3, 3, 112480000000, NULL, 'https://tether.to', 'USD-pegged stablecoin.'),
-
-  ('a0000004-0000-0000-0000-000000000004',
-   'binancecoin',   'BNB',  'BNB',
-   'https://assets.coingecko.com/coins/images/825/thumb/bnb-icon2_2x.png',
-   'https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png',
-   4, 6, 153856000, 200000000, 'https://www.bnbchain.org', 'Binance exchange token.'),
-
-  ('a0000005-0000-0000-0000-000000000005',
-   'solana',        'SOL',  'Solana',
-   'https://assets.coingecko.com/coins/images/4128/thumb/solana.png',
-   'https://assets.coingecko.com/coins/images/4128/large/solana.png',
-   5, 1, 435000000, NULL, 'https://solana.com', 'High-speed Layer 1 blockchain.'),
-
-  ('a0000006-0000-0000-0000-000000000006',
-   'usd-coin',      'USDC', 'USDC',
-   'https://assets.coingecko.com/coins/images/6319/thumb/usdc.png',
-   'https://assets.coingecko.com/coins/images/6319/large/usdc.png',
-   6, 3, 32620000000, NULL, 'https://www.circle.com', 'Circle USD stablecoin.'),
-
-  ('a0000007-0000-0000-0000-000000000007',
-   'ripple',        'XRP',  'XRP',
-   'https://assets.coingecko.com/coins/images/44/thumb/xrp-symbol-white.png',
-   'https://assets.coingecko.com/coins/images/44/large/xrp-symbol-white.png',
-   7, 1, 55000000000, 100000000000, 'https://ripple.com', 'Enterprise payments network.'),
-
-  ('a0000008-0000-0000-0000-000000000008',
-   'dogecoin',      'DOGE', 'Dogecoin',
-   'https://assets.coingecko.com/coins/images/5/thumb/dogecoin.png',
-   'https://assets.coingecko.com/coins/images/5/large/dogecoin.png',
-   8, 5, 145000000000, NULL, 'https://dogecoin.com', 'The original meme coin.'),
-
-  ('a0000009-0000-0000-0000-000000000009',
-   'cardano',       'ADA',  'Cardano',
-   'https://assets.coingecko.com/coins/images/975/thumb/cardano.png',
-   'https://assets.coingecko.com/coins/images/975/large/cardano.png',
-   9, 1, 35200000000, 45000000000, 'https://cardano.org', 'Proof-of-stake Layer 1.'),
-
-  ('a0000010-0000-0000-0000-000000000010',
-   'avalanche-2',   'AVAX', 'Avalanche',
-   'https://assets.coingecko.com/coins/images/12559/thumb/Avalanche_Circle_RedWhite_Trans.png',
-   'https://assets.coingecko.com/coins/images/12559/large/Avalanche_Circle_RedWhite_Trans.png',
-   10, 1, 410000000, 720000000, 'https://avax.network', 'Fast finality EVM chain.'),
-
-  ('a0000011-0000-0000-0000-000000000011',
-   'shiba-inu',     'SHIB', 'Shiba Inu',
-   'https://assets.coingecko.com/coins/images/11939/thumb/shiba.png',
-   'https://assets.coingecko.com/coins/images/11939/large/shiba.png',
-   11, 5, 589000000000000, NULL, 'https://shibatoken.com', 'Ethereum-based meme coin.'),
-
-  ('a0000012-0000-0000-0000-000000000012',
-   'polkadot',      'DOT',  'Polkadot',
-   'https://assets.coingecko.com/coins/images/12171/thumb/polkadot.png',
-   'https://assets.coingecko.com/coins/images/12171/large/polkadot.png',
-   12, 1, 1400000000, NULL, 'https://polkadot.network', 'Multi-chain interoperability.'),
-
-  ('a0000013-0000-0000-0000-000000000013',
-   'chainlink',     'LINK', 'Chainlink',
-   'https://assets.coingecko.com/coins/images/877/thumb/chainlink-new-logo.png',
-   'https://assets.coingecko.com/coins/images/877/large/chainlink-new-logo.png',
-   13, 4, 587000000, 1000000000, 'https://chain.link', 'Decentralised oracle network.'),
-
-  ('a0000014-0000-0000-0000-000000000014',
-   'tron',          'TRX',  'TRON',
-   'https://assets.coingecko.com/coins/images/1094/thumb/tron-logo.png',
-   'https://assets.coingecko.com/coins/images/1094/large/tron-logo.png',
-   14, 1, 87000000000, NULL, 'https://tron.network', 'Decentralised entertainment chain.'),
-
-  ('a0000015-0000-0000-0000-000000000015',
-   'litecoin',      'LTC',  'Litecoin',
-   'https://assets.coingecko.com/coins/images/2/thumb/litecoin.png',
-   'https://assets.coingecko.com/coins/images/2/large/litecoin.png',
-   15, 1, 73700000, 84000000, 'https://litecoin.org', 'Silver to Bitcoin''s gold.'),
-
-  ('a0000016-0000-0000-0000-000000000016',
-   'uniswap',       'UNI',  'Uniswap',
-   'https://assets.coingecko.com/coins/images/12504/thumb/uniswap-uni-logo.png',
-   'https://assets.coingecko.com/coins/images/12504/large/uniswap-uni-logo.png',
-   16, 4, 600000000, 1000000000, 'https://uniswap.org', 'Leading Ethereum DEX protocol.')
-ON CONFLICT (coingecko_id) DO NOTHING;
-
--- ─── Price Snapshots (matching UI screenshots exactly) ────────
+-- ─── 4. Price Snapshots (Exactly matches definitions) ─────────
 INSERT INTO price_snapshots
-    (asset_id, price_usd, price_btc, market_cap_usd, volume_24h_usd,
-     change_1h_pct, change_24h_pct, change_7d_pct, change_30d_pct,
-     ath_usd, ath_date, snapshot_at)
+    (asset_id, price_usd, market_cap_usd, volume_24h_usd, change_24h_pct, change_7d_pct, snapshot_at)
 VALUES
-  ('a0000001-0000-0000-0000-000000000001', 67432.80, 1.000000,    1340000000000, 84620000000,  0.31,  2.34,  5.62, 12.40, 73750.00, '2024-03-14', NOW()),
-  ('a0000002-0000-0000-0000-000000000002',  3521.64, 0.052228,     423180000000, 18000000000,  0.18,  1.87,  3.20,  8.10,  4878.26, '2021-11-10', NOW()),
-  ('a0000003-0000-0000-0000-000000000003',     1.00, 0.000015,     112480000000, 51270000000,  0.00,  0.01,  0.00,  0.02,     1.32, '2018-07-24', NOW()),
-  ('a0000004-0000-0000-0000-000000000004',   598.42, 0.008877,      88340000000,  1480000000, -0.12, -0.84, -1.10, -3.20,   690.93, '2021-05-10', NOW()),
-  ('a0000005-0000-0000-0000-000000000005',   172.86, 0.002564,      79700000000,  3640000000,  0.75,  5.42,  8.90, 18.30,   259.96, '2021-11-06', NOW()),
-  ('a0000006-0000-0000-0000-000000000006',     0.9999, 0.000015,    32620000000,  6870000000,  0.00, -0.01,  0.00, -0.01,     1.17, '2019-05-08', NOW()),
-  ('a0000007-0000-0000-0000-000000000007',     0.5284, 0.000008,    29260000000,  1120000000, -0.22, -1.26, -2.40, -5.10,     3.84, '2018-01-07', NOW()),
-  ('a0000008-0000-0000-0000-000000000008',     0.1423, 0.000002,    20680000000,   897000000,  0.41,  3.62,  6.10, 14.20,     0.74, '2021-05-08', NOW()),
-  ('a0000009-0000-0000-0000-000000000009',     0.4512, 0.000007,    15900000000,   450000000,  0.09,  1.10,  2.30,  5.40,     3.10, '2021-09-02', NOW()),
-  ('a0000010-0000-0000-0000-000000000010',    35.42, 0.000526,      14500000000,   620000000,  0.35,  2.80,  4.50,  9.80,   144.96, '2021-11-21', NOW()),
-  ('a0000011-0000-0000-0000-000000000011',  0.000024, 0.000000,     14200000000,   580000000,  0.55,  4.20,  7.80, 16.50,  0.000088,'2021-10-28', NOW()),
-  ('a0000012-0000-0000-0000-000000000012',     8.92, 0.000132,      12800000000,   310000000, -0.08, -0.60,  1.20,  2.80,    54.98, '2021-11-04', NOW()),
-  ('a0000013-0000-0000-0000-000000000013',    14.73, 0.000219,       8600000000,   420000000,  0.29,  3.10,  5.60, 12.10,    52.70, '2021-05-10', NOW()),
-  ('a0000014-0000-0000-0000-000000000014',     0.1321, 0.000002,    11500000000,   890000000, -0.05, -0.30,  0.80,  1.90,     0.23, '2018-01-05', NOW()),
-  ('a0000015-0000-0000-0000-000000000015',    87.34, 0.001296,       6400000000,   340000000,  0.18,  1.60,  3.20,  7.40,   410.26, '2021-05-10', NOW()),
-  ('a0000016-0000-0000-0000-000000000016',    10.21, 0.000152,       7800000000,   290000000,  0.33,  2.90,  4.70, 10.20,    44.97, '2021-05-03', NOW());
+  ('a0000001-0000-0000-0000-000000000001', 67432.8,    1335000000000, 28460000000,  2.34,  5.62, NOW()),
+  ('a0000002-0000-0000-0000-000000000002',  3521.64,    423180000000, 15240000000,  1.87,  3.20, NOW()),
+  ('a0000003-0000-0000-0000-000000000003',     1.0002,  112480000000, 51270000000,  0.01,  0.00, NOW()),
+  ('a0000004-0000-0000-0000-000000000004',   598.42,     88340000000,  1480000000, -0.84, -1.10, NOW()),
+  ('a0000005-0000-0000-0000-000000000005',   172.86,     79700000000,  3640000000,  5.42,  8.90, NOW()),
+  ('a0000006-0000-0000-0000-000000000006',     0.9999,   32620000000,  6870000000, -0.01,  0.00, NOW()),
+  ('a0000007-0000-0000-0000-000000000007',     0.5284,   29260000000,  1120000000, -1.26, -2.40, NOW()),
+  ('a0000008-0000-0000-0000-000000000008',     0.1423,   20680000000,   897000000,  3.62,  6.10, NOW()),
+  ('a0000009-0000-0000-0000-000000000009',     7.18,     17460000000,   426000000,  4.21,  6.50, NOW()),
+  ('a0000010-0000-0000-0000-000000000010',     0.4528,   16140000000,   312000000, -2.16, -3.40, NOW()),
+  ('a0000011-0000-0000-0000-000000000011',    36.24,     14230000000,   524000000,  6.78,  9.20, NOW()),
+  ('a0000012-0000-0000-0000-000000000012',    17.82,     10840000000,   428000000,  4.93,  7.10, NOW()),
+  ('a0000013-0000-0000-0000-000000000013',     6.42,      9220000000,   198000000, -3.48, -4.80, NOW()),
+  ('a0000014-0000-0000-0000-000000000014',    10.58,      6340000000,   287000000,  8.26, 11.40, NOW()),
+  ('a0000015-0000-0000-0000-000000000015',     6.84,      7460000000,   352000000,  7.12, 10.50, NOW()),
+  ('a0000016-0000-0000-0000-000000000016', 0.00001184,    4980000000,   718000000, -4.72, -6.10, NOW());
 
--- ─── Market Overview ──────────────────────────────────────────
+-- ─── 5. Market Overview (Dashboard stats) ─────────────────────
 INSERT INTO market_overview
-    (total_market_cap, total_volume_24h, btc_dominance, eth_dominance,
-     defi_volume_24h, market_cap_change, volume_change, dominance_change,
-     active_assets, active_exchanges)
+    (total_market_cap, total_volume_24h, btc_dominance,
+     market_cap_change, volume_change, dominance_change, snapshot_date)
 VALUES
-    (2480000000000, 84620000000, 54.2, 17.1,
-     12400000000,   2.34, 8.12, 0.42,
-     16, 420);
+    (2480000000000, 84620000000, 54.2, 2.34, 8.12, 0.42, 'October 2, 2026');
 
--- ─── Watchlist ────────────────────────────────────────────────
-INSERT INTO watchlists (id, workspace_id, user_id, name, icon)
+-- ─── 6. Historical Chart Points for Bitcoin (7D) ──────────────
+-- Generates sample historical candles so Recharts renders immediately
+DO $$
+DECLARE
+    end_time BIGINT := 1790956800000; -- Date.UTC(2026, 9, 2, 16)
+    step_ms  BIGINT := 7200000;       -- 2 hours apart
+    i        INT;
+    p        NUMERIC;
+BEGIN
+    FOR i IN 0..83 LOOP
+        p := 64000.0 + (i * 41.3) + (sin(i * 0.4) * 350.0);
+        INSERT INTO ohlcv_candles (asset_id, period, timestamp_ms, price)
+        VALUES (
+            'a0000001-0000-0000-0000-000000000001',
+            '7D',
+            end_time - ((84 - i) * step_ms),
+            ROUND(p, 2)
+        )
+        ON CONFLICT (asset_id, period, timestamp_ms) DO NOTHING;
+    END LOOP;
+END $$;
+
+-- ─── 7. Watchlist ─────────────────────────────────────────────
+INSERT INTO watchlists (id, workspace_id, user_id, name)
 VALUES (
     'cccccccc-0000-0000-0000-000000000001',
     'bbbbbbbb-0000-0000-0000-000000000001',
     'aaaaaaaa-0000-0000-0000-000000000001',
-    'Local watchlist',
-    '⭐'
+    'Local watchlist'
 ) ON CONFLICT DO NOTHING;
 
-INSERT INTO watchlist_assets (watchlist_id, asset_id, sort_order, notes)
+INSERT INTO watchlist_assets (watchlist_id, asset_id, sort_order)
 VALUES
-  ('cccccccc-0000-0000-0000-000000000001','a0000001-0000-0000-0000-000000000001', 1, 'Core holding'),
-  ('cccccccc-0000-0000-0000-000000000001','a0000002-0000-0000-0000-000000000002', 2, NULL),
-  ('cccccccc-0000-0000-0000-000000000001','a0000005-0000-0000-0000-000000000005', 3, 'High momentum')
+  ('cccccccc-0000-0000-0000-000000000001','a0000001-0000-0000-0000-000000000001', 1),
+  ('cccccccc-0000-0000-0000-000000000001','a0000002-0000-0000-0000-000000000002', 2),
+  ('cccccccc-0000-0000-0000-000000000005','a0000005-0000-0000-0000-000000000005', 3)
 ON CONFLICT DO NOTHING;
 
--- ─── Starred Assets ───────────────────────────────────────────
-INSERT INTO user_starred_assets (user_id, asset_id)
-VALUES
-  ('aaaaaaaa-0000-0000-0000-000000000001','a0000001-0000-0000-0000-000000000001'),
-  ('aaaaaaaa-0000-0000-0000-000000000001','a0000002-0000-0000-0000-000000000002'),
-  ('aaaaaaaa-0000-0000-0000-000000000001','a0000005-0000-0000-0000-000000000005')
-ON CONFLICT DO NOTHING;
-
--- ─── Sample Portfolio ─────────────────────────────────────────
-INSERT INTO portfolio (user_id, asset_id, quantity, avg_buy_price, bought_at, notes)
-VALUES
-  ('aaaaaaaa-0000-0000-0000-000000000001','a0000001-0000-0000-0000-000000000001',
-   0.25, 58000.00, NOW() - INTERVAL '90 days', 'Long-term hold'),
-  ('aaaaaaaa-0000-0000-0000-000000000001','a0000002-0000-0000-0000-000000000002',
-   2.50, 3000.00,  NOW() - INTERVAL '60 days', NULL),
-  ('aaaaaaaa-0000-0000-0000-000000000001','a0000005-0000-0000-0000-000000000005',
-   50.0, 140.00,   NOW() - INTERVAL '30 days', 'Momentum trade');
-
--- ─── Sample Price Alerts ──────────────────────────────────────
-INSERT INTO price_alerts (user_id, asset_id, condition, target_price, notify_email)
-VALUES
-  ('aaaaaaaa-0000-0000-0000-000000000001','a0000001-0000-0000-0000-000000000001',
-   'above', 70000.00, TRUE),
-  ('aaaaaaaa-0000-0000-0000-000000000001','a0000002-0000-0000-0000-000000000002',
-   'below', 3000.00,  TRUE);
-
--- ─── Market Movers snapshot ───────────────────────────────────
-INSERT INTO market_movers (asset_id, category, rank_position, price_usd, change_24h_pct, volume_24h_usd)
-VALUES
-  -- Trending (by volume)
-  ('a0000001-0000-0000-0000-000000000001','trending',   1, 67432.80,  2.34, 84620000000),
-  ('a0000003-0000-0000-0000-000000000003','trending',   2,     1.00,  0.01, 51270000000),
-  ('a0000006-0000-0000-0000-000000000006','trending',   3,     0.9999,-0.01, 6870000000),
-  ('a0000002-0000-0000-0000-000000000002','trending',   4,  3521.64,  1.87, 18000000000),
-  ('a0000005-0000-0000-0000-000000000005','trending',   5,   172.86,  5.42,  3640000000),
-  -- Top Gainers
-  ('a0000005-0000-0000-0000-000000000005','top_gainer', 1,   172.86,  5.42,  3640000000),
-  ('a0000011-0000-0000-0000-000000000011','top_gainer', 2,  0.000024, 4.20,   580000000),
-  ('a0000008-0000-0000-0000-000000000008','top_gainer', 3,     0.1423, 3.62,  897000000),
-  ('a0000013-0000-0000-0000-000000000013','top_gainer', 4,    14.73,  3.10,   420000000),
-  ('a0000016-0000-0000-0000-000000000016','top_gainer', 5,    10.21,  2.90,   290000000),
-  -- Top Losers
-  ('a0000007-0000-0000-0000-000000000007','top_loser',  1,     0.5284,-1.26,  1120000000),
-  ('a0000004-0000-0000-0000-000000000004','top_loser',  2,   598.42, -0.84,  1480000000),
-  ('a0000012-0000-0000-0000-000000000012','top_loser',  3,     8.92, -0.60,   310000000),
-  ('a0000014-0000-0000-0000-000000000014','top_loser',  4,     0.1321,-0.30,  890000000),
-  ('a0000006-0000-0000-0000-000000000006','top_loser',  5,     0.9999,-0.01, 6870000000);
+-- ─── 8. Populate Materialized View and Market Movers ──────────
+REFRESH MATERIALIZED VIEW mv_latest_prices;
+SELECT refresh_market_movers();

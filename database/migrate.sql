@@ -1,20 +1,19 @@
 -- =============================================================
---  CRYPTOPULSE  –  Migration Runner  v2.0
---  Run:  psql "$DATABASE_URL" -f database/migrate.sql
---  Or add to package.json: "db:migrate": "psql $DATABASE_URL -f database/migrate.sql"
+--  CRYPTOPULSE  –  Migration Runner  v3.0
+--  Run: psql "$DATABASE_URL" -f database/migrate.sql
 -- =============================================================
 
-\echo '╔══════════════════════════════════════╗'
-\echo '║   CryptoPulse DB Migration  v2.0     ║'
-\echo '╚══════════════════════════════════════╝'
-
-\echo '--- [1/3] schema.sql  (tables, indexes, triggers) ---'
+\echo '--- [1/3] Running schema.sql ---'
 \i database/schema.sql
 
-\echo '--- [2/3] queries.sql  (views, functions, mat-view) ---'
+\echo '--- [2/3] Running queries.sql ---'
 \i database/queries.sql
 
-\echo '--- [3/3] seed.sql  (16 assets, demo data) ---'
+\echo '--- [3/3] Running seed.sql ---'
 \i database/seed.sql
 
-\echo '=== ✅ Migration complete ==='
+\echo '--- Refreshing materialized views ---'
+REFRESH MATERIALIZED VIEW mv_latest_prices;
+SELECT refresh_market_movers();
+
+\echo '=== CryptoPulse Database Migration Complete ==='
