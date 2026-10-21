@@ -1,12 +1,14 @@
 import axios from 'axios';
 import { coins as fallbackCoins, marketStats as fallbackStats } from '../data/coins';
 
-const API_BASE_URL =
-  (typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL) || '/api';
+const BACKEND_URL =
+  (typeof import.meta !== 'undefined' &&
+    (import.meta.env?.VITE_BACKEND_URL || import.meta.env?.VITE_API_URL)) ||
+  'https://cryptocurrency-price-tracker-1.onrender.com';
 
 const apiClient = axios.create({
-  baseURL: API_BASE_URL,
-  timeout: 8000,
+  baseURL: `${BACKEND_URL.replace(/\/$/, '')}/api`,
+  timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
   },

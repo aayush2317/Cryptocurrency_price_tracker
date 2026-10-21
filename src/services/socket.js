@@ -1,10 +1,11 @@
 import { io } from 'socket.io-client';
 
-const SOCKET_URL =
-  (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SOCKET_URL) ||
-  (typeof window !== 'undefined'
-    ? `${window.location.protocol === 'https:' ? 'https:' : 'http:'}//${window.location.hostname}:5000`
-    : 'http://localhost:5000');
+const BACKEND_URL =
+  (typeof import.meta !== 'undefined' &&
+    (import.meta.env?.VITE_BACKEND_URL || import.meta.env?.VITE_SOCKET_URL)) ||
+  'https://cryptocurrency-price-tracker-1.onrender.com';
+
+const SOCKET_URL = BACKEND_URL.replace(/\/$/, '');
 
 let socket = null;
 
@@ -12,6 +13,7 @@ export function getSocket() {
   if (!socket) {
     socket = io(SOCKET_URL, {
       transports: ['websocket', 'polling'],
+      withCredentials: true,
       reconnectionAttempts: 20,
       reconnectionDelay: 1500,
       autoConnect: true,
