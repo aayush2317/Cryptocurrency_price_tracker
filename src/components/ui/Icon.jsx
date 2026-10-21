@@ -24,8 +24,12 @@ import {
   Command,
   RefreshCw,
   LogOut,
+  Sun,
+  Moon,
 } from 'lucide-react';
 const icons = {
+  sun: Sun,
+  moon: Moon,
   logout: LogOut,
   activity: Activity,
   dashboard: LayoutDashboard,

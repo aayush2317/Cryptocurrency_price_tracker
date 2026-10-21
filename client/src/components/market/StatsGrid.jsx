@@ -20,7 +20,11 @@ export default function StatsGrid() {
   return (
     <div className="stats-grid">
       {(stats || []).map((stat, i) => (
-        <section key={stat.kind} className="panel stat-card" aria-label={stat.label}>
+        <section
+          key={stat.kind}
+          className="panel stat-card !p-4 sm:!p-5 bg-white dark:bg-[#0D1117] border border-slate-200/80 dark:border-white/5 shadow-[6px_6px_16px_rgba(163,177,198,0.25),-6px_-6px_16px_rgba(255,255,255,0.9)] dark:shadow-none text-slate-900 dark:text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg cursor-pointer"
+          aria-label={stat.label}
+        >
           <div className="stat-top">
             <span>{stat.label}</span>
             <div className="stat-icon">
@@ -28,7 +32,7 @@ export default function StatsGrid() {
             </div>
           </div>
           <div className="stat-values">
-            <strong>{stat.value}</strong>
+            <strong className="text-slate-900 dark:text-white">{stat.value}</strong>
             <ChangeBadge value={stat.change} pill />
           </div>
           <div className="stat-bottom">

@@ -28,7 +28,7 @@ export default function MarketMovers() {
           .slice(0, 5);
 
   return (
-    <section className="panel movers-panel">
+    <section className="panel movers-panel bg-white dark:bg-[#0D1117] border border-slate-200/80 dark:border-white/5 shadow-[6px_6px_16px_rgba(163,177,198,0.25),-6px_-6px_16px_rgba(255,255,255,0.9)] dark:shadow-none text-slate-900 dark:text-white">
       <div className="panel-heading">
         <h2>Market movers</h2>
         <Icon name="trending" size={18} />
@@ -69,15 +69,15 @@ export default function MarketMovers() {
           const flashClass = flash === 'up' ? 'flash-up' : flash === 'down' ? 'flash-down' : '';
 
           return (
-            <Link to={`/coin/${coin.id}`} className="mover-row" key={coin.id}>
+            <Link to={`/coin/${coin.id}`} className="mover-row transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg cursor-pointer" key={coin.id}>
               <span className="mover-rank">{i + 1}</span>
               <CoinAvatar coin={coin} size="small" />
               <div className="mover-name">
-                <strong>{coin.name}</strong>
+                <strong className="text-slate-900 dark:text-white">{coin.name}</strong>
                 <span>{coin.symbol}</span>
               </div>
               <div className="mover-value">
-                <strong className={`tabular-nums ${flashClass}`}>{price(coin.price)}</strong>
+                <strong className={`tabular-nums text-slate-900 dark:text-white ${flashClass}`}>{price(coin.price)}</strong>
                 <ChangeBadge value={coin.change} showIcon={false} />
               </div>
             </Link>

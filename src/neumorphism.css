@@ -1,0 +1,409 @@
+/* CryptoPulse theme switching: the original dark styles remain in styles.css.
+ * Light Neumorphism below applies ONLY when data-theme="light". */
+/*
+ * CryptoPulse / Light Neumorphism
+ * Presentation-only stylesheet, loaded AFTER styles.css.
+ * Does not touch market data, networking, routing, charts' geometry or state.
+ */
+html[data-theme="light"], html.light {
+  color-scheme: light;
+  color: #0F172A;
+  background: #EEF2F6;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --color-pulse: #008f7e;
+  --green: #008c79;
+  --red: #ce465c;
+  --muted: #475569;
+  --subtle: #64748b;
+  --border: rgba(203, 213, 225, 0.8);
+  --surface: #ffffff;
+  --neumo-base: #EEF2F6;
+  --neumo-card: #ffffff;
+  --neumo-text: #0F172A;
+  --neumo-muted: #475569;
+  --neumo-line: #cbd5e1;
+  --neumo-raised: 6px 6px 16px rgba(163, 177, 198, 0.25),
+    -6px -6px 16px rgba(255, 255, 255, 0.9);
+  --neumo-inset: inset 2px 2px 5px rgba(163, 177, 198, 0.2),
+    inset -2px -2px 5px rgba(255, 255, 255, 0.8);
+}
+
+html[data-theme="light"] body, html.light body {
+  color: #0F172A;
+  background: #EEF2F6;
+}
+
+html[data-theme="light"] ::selection { background: #bde8df; color: #173b35; }
+html[data-theme="light"] button:focus-visible, html[data-theme="light"] a:focus-visible, html[data-theme="light"] input:focus-visible {
+  outline: 2px solid #0F172A;
+  outline-offset: 3px;
+}
+html[data-theme="light"] .positive { color: #008b75; }
+html[data-theme="light"] .negative { color: #c9435c; }
+
+/* Left navigation: subtle elevation instead of flat black blocks */
+html[data-theme="light"] .sidebar {
+  background: #EEF2F6;
+  border-right: 1px solid #cbd5e1;
+  box-shadow: 4px 0 16px rgba(170, 186, 205, 0.15);
+}
+html[data-theme="light"] .brand { color: #0F172A; }
+html[data-theme="light"] .brand-light { color: #475569; }
+html[data-theme="light"] .brand-mark {
+  color: white;
+  background: linear-gradient(145deg, #0acbb0, #00a68c);
+  border-radius: 12px;
+  box-shadow: 3px 3px 8px #c5d4e1, -3px -3px 8px #ffffff;
+}
+html[data-theme="light"] .nav-section-label { color: #64748B; font-weight: 700; letter-spacing: 0.05em; }
+html[data-theme="light"] .nav-link { color: #334155; font-weight: 600; border-color: transparent; border-radius: 11px; }
+html[data-theme="light"] .nav-link:hover {
+  color: #0F172A;
+  background: #e2e8f0;
+}
+html[data-theme="light"] .nav-link.active {
+  color: #0F172A;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  box-shadow: 2px 2px 8px rgba(163, 181, 194, .3),
+    -2px -2px 8px rgba(255, 255, 255, .9);
+  font-weight: 700;
+}
+html[data-theme="light"] .nav-count { background: #cbd5e1; color: #1e293b; border-radius: 6px; font-weight: 600; }
+html[data-theme="light"] .nav-link.active .nav-count { background: #0F172A; color: #ffffff; }
+html[data-theme="light"] .market-note, html[data-theme="light"] .sidebar-footer { border-top-color: #cbd5e1; }
+html[data-theme="light"] .market-note-icon { color: #008c79; }
+html[data-theme="light"] .market-note strong { color: #0F172A; }
+html[data-theme="light"] .market-note p, html[data-theme="light"] .sample-label { color: #475569; }
+html[data-theme="light"] .avatar, html[data-theme="light"] .header-avatar {
+  color: #1e293b;
+  background: #e2e8f0;
+  border: 1px solid rgba(203, 213, 225, 0.8);
+  font-weight: 700;
+  box-shadow: none;
+}
+html[data-theme="light"] .sidebar-footer strong { color: #0F172A; }
+html[data-theme="light"] .sidebar-footer div > span { color: #475569; }
+html[data-theme="light"] .workspace-dot { background: #10ab90; }
+
+/* App chrome and search fields */
+html[data-theme="light"] .topbar {
+  background: rgba(248, 250, 252, 0.95);
+  border-bottom: 1px solid #cbd5e1;
+}
+html[data-theme="light"] .breadcrumb { color: #0F172A; font-weight: 600; }
+html[data-theme="light"] .breadcrumb-home { color: #64748B; font-weight: 500; }
+html[data-theme="light"] .breadcrumb > svg { color: #94A3B8; }
+html[data-theme="light"] .search-field {
+  color: #0F172A;
+  background: #e2e8f0;
+  border: 1px solid #cbd5e1;
+  border-radius: 11px;
+}
+html[data-theme="light"] .search-field:focus-within { border-color: #0F172A; background: #ffffff; }
+html[data-theme="light"] .search-field input { color: #0F172A; font-weight: 500; }
+html[data-theme="light"] .search-field input::placeholder { color: #64748B; }
+html[data-theme="light"] .global-search kbd {
+  background: #cbd5e1;
+  color: #334155;
+  border-color: #94a3b8;
+  border-radius: 5px;
+  font-weight: 600;
+}
+html[data-theme="light"] .live-indicator {
+  color: #15803d;
+  background: #dcfce7;
+  border: 1px solid #86efac;
+  font-weight: 600;
+}
+html[data-theme="light"] .live-indicator:hover {
+  background: #bbf7d0;
+  border-color: #4ade80;
+}
+html[data-theme="light"] .data-status { color: #334155; }
+html[data-theme="light"] .data-status > span {
+  background: #0aad91;
+  box-shadow: 0 0 0 3px #d1ede5;
+}
+html[data-theme="light"] .header-avatar {
+  border-color: #cbd5e1;
+  color: #0F172A;
+  background: #e2e8f0;
+  font-weight: 700;
+}
+
+/* Page rhythm and accessible text contrast */
+html[data-theme="light"] .page-heading h1, html[data-theme="light"] .coin-heading-name h1 { color: #0F172A; }
+html[data-theme="light"] .eyebrow { color: #475569; font-weight: 700; }
+html[data-theme="light"] .page-heading p, html[data-theme="light"] .market-heading p { color: #475569; }
+html[data-theme="light"] .snapshot-date { color: #334155; }
+html[data-theme="light"] .snapshot-date > span { color: #64748B; }
+html[data-theme="light"] .section-label-row, html[data-theme="light"] .section-label-row > div { color: #475569; font-weight: 600; }
+html[data-theme="light"] .section-label-row a { color: #334155; font-weight: 600; }
+html[data-theme="light"] .section-label-row a:hover { color: var(--green); }
+html[data-theme="light"] .section-dot { background: #09b49b; }
+
+/* Soft raised panels. No shadows on the actual chart stroke. */
+html[data-theme="light"] .panel {
+  background: var(--neumo-card);
+  border: 1px solid rgba(203, 213, 225, 0.8);
+  border-radius: 18px;
+  box-shadow: var(--neumo-raised);
+}
+html[data-theme="light"] .stat-card { transition: box-shadow .22s, transform .22s, border-color .22s; }
+html[data-theme="light"] .stat-card:hover {
+  transform: translateY(-2px);
+  border-color: #cbd5e1;
+  box-shadow: 10px 10px 22px rgba(164, 181, 200, .4),
+    -8px -8px 19px rgba(255, 255, 255, .95);
+}
+html[data-theme="light"] .stat-top, html[data-theme="light"] .stat-bottom { color: #475569; }
+html[data-theme="light"] .stat-icon {
+  color: #008d7b;
+  background: #e4f1ed;
+  border: 1px solid #daebe6;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px #d2dce6, -2px -2px 5px #fff;
+}
+html[data-theme="light"] .stat-values strong { color: #0F172A; }
+html[data-theme="light"] .stat-bottom svg { color: #04a992; }
+html[data-theme="light"] .change-pill {
+  color: var(--green);
+  background: #d7efe8;
+  border-radius: 7px;
+}
+html[data-theme="light"] .change-pill.negative { color: var(--red); background: #fce4e8; }
+html[data-theme="light"] .dominance-mini { background: #d8e3ec; }
+
+/* Price chart */
+html[data-theme="light"] .coin-title h2, html[data-theme="light"] .chart-price, html[data-theme="light"] .coin-price { color: #0F172A; }
+html[data-theme="light"] .coin-title h2 > span, html[data-theme="light"] .chart-gain > span:last-child { color: #64748B; }
+html[data-theme="light"] .currency-label {
+  background: #e2e8f0;
+  color: #334155;
+  border-color: #cbd5e1;
+  border-radius: 7px;
+}
+html[data-theme="light"] .periods {
+  background: #e2e8f0;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+}
+html[data-theme="light"] .periods button { color: #475569; border-radius: 7px; }
+html[data-theme="light"] .periods button:hover { color: #0F172A; background: #cbd5e1; }
+html[data-theme="light"] .periods button.selected {
+  color: #ffffff;
+  background: #0F172A;
+  font-weight: 700;
+}
+
+/* Candlestick chart header and timeframe selector in light mode */
+html[data-theme="light"] .candle-chart-header {
+  background: #f8fafc;
+  border-bottom: 1px solid #cbd5e1;
+}
+html[data-theme="light"] .candle-timeframe-selector {
+  background: #e2e8f0;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+}
+html[data-theme="light"] .tf-button {
+  color: #475569;
+}
+html[data-theme="light"] .tf-button:hover:not(:disabled) {
+  color: #0F172A;
+  background: #cbd5e1;
+}
+html[data-theme="light"] .tf-button.selected {
+  color: #ffffff;
+  background: #0F172A;
+}
+html[data-theme="light"] .tf-button.tf-fit {
+  border-left-color: #cbd5e1;
+}
+
+/* Market movers */
+html[data-theme="light"] .panel-heading h2 { color: #0F172A; }
+html[data-theme="light"] .panel-heading > svg { color: #008c79; }
+html[data-theme="light"] .mover-tabs { border-bottom-color: #cbd5e1; }
+html[data-theme="light"] .mover-tabs button { color: #475569; font-weight: 600; }
+html[data-theme="light"] .mover-tabs button.selected { color: #0F172A; border-bottom-color: #0F172A; }
+html[data-theme="light"] .mover-tabs button:hover { color: #0F172A; }
+html[data-theme="light"] .mover-row { border-bottom-color: #e2e8f0; border-radius: 9px; }
+html[data-theme="light"] .mover-row:hover { background: #e2e8f0; }
+html[data-theme="light"] .mover-rank, html[data-theme="light"] .mover-name > span { color: #64748B; }
+html[data-theme="light"] .mover-name strong, html[data-theme="light"] .mover-value > strong { color: #0F172A; }
+html[data-theme="light"] .movers-all { border-top-color: #cbd5e1; color: #334155; font-weight: 600; }
+html[data-theme="light"] .movers-all:hover { color: #008c79; }
+
+/* Tables, sorting, filters, and paging */
+html[data-theme="light"] .market-panel { overflow: hidden; }
+html[data-theme="light"] .market-heading h2 { color: #0F172A; }
+html[data-theme="light"] .count-badge { background: #e2e8f0; color: #1e293b; font-weight: 600; }
+html[data-theme="light"] .table-scroll { scrollbar-color: #cbd5e1 #f1f5f9; }
+html[data-theme="light"] .table-scroll table { color: #0F172A; }
+html[data-theme="light"] thead {
+  background: #f1f5f9;
+  border-top: 1px solid #cbd5e1;
+  border-bottom: 1px solid #cbd5e1;
+}
+html[data-theme="light"] th { color: #475569; font-weight: 700; }
+html[data-theme="light"] th button:hover { color: #0F172A; }
+html[data-theme="light"] td { color: #334155; border-bottom: 1px solid #e2e8f0; }
+html[data-theme="light"] tbody tr:hover { background: #f1f5f9; }
+html[data-theme="light"] .coin-price, html[data-theme="light"] .table-coin strong { color: #0F172A; }
+html[data-theme="light"] .coin-symbol, html[data-theme="light"] .rank-cell { color: #64748B; font-weight: 500; }
+html[data-theme="light"] .table-coin:hover strong { color: #008c79; }
+html[data-theme="light"] .watch-button { color: #94a3b8; }
+html[data-theme="light"] .watch-button:hover { background: #e2e8f0; color: #f59e0b; }
+html[data-theme="light"] .watch-button.saved { color: #d97706; }
+html[data-theme="light"] .table-footer { border-top-color: #cbd5e1; color: #475569; }
+html[data-theme="light"] .pagination button { color: #475569; border-radius: 8px; font-weight: 600; }
+html[data-theme="light"] .pagination button:hover:not(:disabled) { background: #e2e8f0; }
+html[data-theme="light"] .pagination button.selected {
+  color: #ffffff;
+  background: #0F172A;
+  border: 1px solid #0F172A;
+}
+html[data-theme="light"] .category-filters button {
+  color: #475569;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  border-radius: 9px;
+  font-weight: 600;
+}
+html[data-theme="light"] .category-filters button.selected {
+  color: #ffffff;
+  background: #0F172A;
+  border-color: #0F172A;
+}
+html[data-theme="light"] .category-filters button:hover { color: #0F172A; border-color: #94a3b8; }
+
+/* Buttons, tags, watchlist and empty states */
+html[data-theme="light"] .button { border-radius: 10px; }
+html[data-theme="light"] .button-primary {
+  color: #fff;
+  background: #0F172A;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+html[data-theme="light"] .button-primary:hover { background: #1e293b; }
+html[data-theme="light"] .button-secondary {
+  color: #0F172A;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+}
+html[data-theme="light"] .button-secondary:hover { background: #f1f5f9; }
+html[data-theme="light"] .button-saved { color: #007d6c; border-color: #b9dacf; background: #dcf2e9; }
+html[data-theme="light"] .quiet-badge, html[data-theme="light"] .coin-tags > span {
+  color: #334155;
+  background: #e2e8f0;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-weight: 600;
+}
+html[data-theme="light"] .local-note, html[data-theme="light"] .back-link { color: #334155; font-weight: 600; }
+html[data-theme="light"] .detail-price > strong { color: #0F172A; }
+html[data-theme="light"] .detail-price > span:last-child { color: #475569; }
+html[data-theme="light"] .coin-heading-name > span { color: #64748B; }
+html[data-theme="light"] .about-coin > p { color: #334155; }
+html[data-theme="light"] .about-note, html[data-theme="light"] .app-footer { color: #64748B; }
+
+/* Theme switch: solid high-contrast button */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 12px;
+  min-width: 41px;
+  min-height: 36px;
+  border: 1px solid #303c3a;
+  border-radius: 10px;
+  background: #1a2021;
+  color: #d0e5dc;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.theme-toggle:hover { background: #26332f; color: #56e3b0; }
+.theme-toggle-label { display: inline-block; }
+
+html[data-theme="light"] .theme-toggle,
+html.light .theme-toggle {
+  color: #1e293b !important;
+  background: #ffffff !important;
+  border: 1px solid rgba(226, 232, 240, 0.9) !important;
+  box-shadow: 0 1px 3px rgba(163, 177, 198, 0.2), 0 1px 2px rgba(163, 177, 198, 0.1) !important;
+}
+html[data-theme="light"] .theme-toggle:hover,
+html.light .theme-toggle:hover {
+  color: #059669 !important;
+  background: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 4px 6px -1px rgba(163, 177, 198, 0.25), 0 2px 4px -2px rgba(163, 177, 198, 0.2) !important;
+}
+
+html[data-theme="light"] .wallet-button,
+html.light .wallet-button {
+  color: #1e293b !important;
+  background: #ffffff !important;
+  border: 1px solid rgba(226, 232, 240, 0.9) !important;
+  box-shadow: 0 1px 3px rgba(163, 177, 198, 0.2), 0 1px 2px rgba(163, 177, 198, 0.1) !important;
+}
+html[data-theme="light"] .wallet-button:hover,
+html.light .wallet-button:hover {
+  color: #059669 !important;
+  background: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 4px 6px -1px rgba(163, 177, 198, 0.25), 0 2px 4px -2px rgba(163, 177, 198, 0.2) !important;
+}
+
+@media (max-width: 780px) {
+  .theme-toggle-label { display: none; }
+  .theme-toggle { padding: 8px; }
+}
+
+/* ================================================================
+   CryptoPulse Terminal Polish & Hover Pop
+   Applies to both Dark terminal (#050505 / #0D1117) and Light Neumorphic (#EEF2F6 / #ffffff)
+   ================================================================ */
+
+.stat-card,
+.mover-row,
+.market-table tbody tr,
+table tbody tr,
+.card-hover-pop {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.stat-card:hover,
+.mover-row:hover,
+.market-table tbody tr:hover,
+table tbody tr:hover,
+.card-hover-pop:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+}
+
+html[data-theme="light"] .stat-card:hover,
+html[data-theme="light"] .mover-row:hover,
+html[data-theme="light"] .market-table tbody tr:hover,
+html[data-theme="light"] table tbody tr:hover,
+html[data-theme="light"] .card-hover-pop:hover {
+  transform: translateY(-2px);
+  box-shadow: 6px 12px 24px rgba(163, 177, 198, 0.35), -6px -6px 16px rgba(255, 255, 255, 0.95);
+}
+
+/* Reduced-motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .stat-card,
+  .mover-row,
+  .market-table tbody tr,
+  table tbody tr,
+  .card-hover-pop {
+    transition: none;
+    transform: none !important;
+  }
+}

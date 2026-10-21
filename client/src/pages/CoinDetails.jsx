@@ -89,20 +89,20 @@ export default function CoinDetails() {
       </div>
       <div className="detail-grid">
         <PriceChart key={coin.id} coin={coin} detail />
-        <section className="panel coin-statistics">
+        <section className="panel coin-statistics bg-white dark:bg-[#0D1117] border border-slate-200/80 dark:border-white/5 shadow-[6px_6px_16px_rgba(163,177,198,0.25),-6px_-6px_16px_rgba(255,255,255,0.9)] dark:shadow-none text-slate-900 dark:text-white">
           <div className="panel-heading">
             <h2>Market statistics</h2>
             <Icon name="markets" size={18} />
           </div>
 
           {/* 24h Price Range progress bar */}
-          <div className="range-card bg-[#0D1117] border border-white/5 rounded-xl p-4 mt-3">
-            <div className="flex justify-between items-center text-xs text-gray-400 font-medium">
-              <span>24h Low: <strong className="text-white tabular-nums ml-1">{price(low24h)}</strong></span>
-              <span className="uppercase tracking-wider text-[11px] text-gray-500 font-semibold">24h Range</span>
-              <span>24h High: <strong className="text-white tabular-nums ml-1">{price(high24h)}</strong></span>
+          <div className="range-card bg-slate-50 dark:bg-[#161B22] border border-slate-200/80 dark:border-white/5 rounded-xl p-4 mt-3">
+            <div className="flex justify-between items-center text-xs text-slate-500 dark:text-gray-400 font-medium">
+              <span>24h Low: <strong className="text-slate-900 dark:text-white tabular-nums ml-1">{price(low24h)}</strong></span>
+              <span className="uppercase tracking-wider text-[11px] text-slate-500 dark:text-gray-500 font-semibold">24h Range</span>
+              <span>24h High: <strong className="text-slate-900 dark:text-white tabular-nums ml-1">{price(high24h)}</strong></span>
             </div>
-            <div className="w-full bg-gray-800 h-1.5 rounded-full overflow-hidden mt-2.5">
+            <div className="w-full bg-slate-200 dark:bg-gray-800 h-1.5 rounded-full overflow-hidden mt-2.5">
               <div
                 className="bg-emerald-500 h-full rounded-full transition-all duration-500"
                 style={{ width: `${rangePercent}%` }}
@@ -115,23 +115,23 @@ export default function CoinDetails() {
             {(metrics || []).map(([label, value]) => (
               <div
                 key={label}
-                className="bg-[#0D1117] border border-white/5 rounded-xl p-4 flex flex-col justify-between"
+                className="bg-slate-50 dark:bg-[#161B22] border border-slate-200/80 dark:border-white/5 rounded-xl p-4 flex flex-col justify-between transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg cursor-pointer"
               >
-                <span className="text-xs font-medium text-gray-400 uppercase tracking-wider">{label}</span>
-                <span className="text-lg font-semibold text-white tabular-nums mt-1">{value}</span>
+                <span className="text-xs font-medium text-slate-500 dark:text-gray-400 uppercase tracking-wider">{label}</span>
+                <span className="text-lg font-semibold text-slate-900 dark:text-white tabular-nums mt-1">{value}</span>
               </div>
             ))}
           </div>
 
           {/* Circulating / Max Supply Card */}
-          <div className="supply-details bg-[#0D1117] border border-white/5 rounded-xl p-4 mt-3">
-            <div className="flex justify-between items-center text-xs text-gray-400 uppercase tracking-wider font-medium">
+          <div className="supply-details bg-slate-50 dark:bg-[#161B22] border border-slate-200/80 dark:border-white/5 rounded-xl p-4 mt-3">
+            <div className="flex justify-between items-center text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider font-medium">
               <span>Circulating / max supply</span>
-              <strong className="text-white tabular-nums text-sm font-semibold">{supply === null ? 'No fixed cap' : supply.toFixed(1) + '%'}</strong>
+              <strong className="text-slate-900 dark:text-white tabular-nums text-sm font-semibold">{supply === null ? 'No fixed cap' : supply.toFixed(1) + '%'}</strong>
             </div>
             {supply !== null && (
               <div
-                className="supply-bar w-full bg-gray-800 h-1.5 rounded-full overflow-hidden mt-2"
+                className="supply-bar w-full bg-slate-200 dark:bg-gray-800 h-1.5 rounded-full overflow-hidden mt-2"
                 role="progressbar"
                 aria-label="Circulating share of maximum supply"
                 aria-valuenow={Number(supply.toFixed(1))}
@@ -141,7 +141,7 @@ export default function CoinDetails() {
                 <div className="bg-emerald-500 h-full rounded-full" style={{ width: `${supply}%` }} />
               </div>
             )}
-            <p className="text-xs text-gray-400 mt-2">
+            <p className="text-xs text-slate-500 dark:text-gray-400 mt-2">
               {coin.maxSupply
                 ? `${number(coin.circulatingSupply)} / ${number(coin.maxSupply)} ${coin.symbol}`
                 : `${number(coin.circulatingSupply)} ${coin.symbol} circulating`}
@@ -149,7 +149,7 @@ export default function CoinDetails() {
           </div>
         </section>
       </div>
-      <section className="panel about-coin">
+      <section className="panel about-coin bg-white dark:bg-[#0D1117] border border-slate-200/80 dark:border-white/5 shadow-[6px_6px_16px_rgba(163,177,198,0.25),-6px_-6px_16px_rgba(255,255,255,0.9)] dark:shadow-none text-slate-900 dark:text-white">
         <div>
           <div className="eyebrow">THE FUNDAMENTALS</div>
           <h2>About {coin.name}</h2>

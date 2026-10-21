@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { WatchlistProvider } from './context/WatchlistContext';
 import { MarketDataProvider } from './context/MarketDataContext';
+import { ThemeProvider } from './context/ThemeContext';
 import AppLayout from './components/layout/AppLayout';
 import Dashboard from './pages/Dashboard';
 import Markets from './pages/Markets';
@@ -100,11 +101,13 @@ function AppRoutes() {
 export default function App() {
   return (
     <GlobalErrorBoundary>
-      <MarketDataProvider>
-        <WatchlistProvider>
-          <AppRoutes />
-        </WatchlistProvider>
-      </MarketDataProvider>
+      <ThemeProvider>
+        <MarketDataProvider>
+          <WatchlistProvider>
+            <AppRoutes />
+          </WatchlistProvider>
+        </MarketDataProvider>
+      </ThemeProvider>
     </GlobalErrorBoundary>
   );
 }

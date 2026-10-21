@@ -102,7 +102,7 @@ export default function MarketTable({
   }
 
   return (
-    <section className="panel market-panel" aria-label={title}>
+    <section className="panel market-panel bg-white dark:bg-[#0D1117] border border-slate-200/80 dark:border-white/5 shadow-[6px_6px_16px_rgba(163,177,198,0.25),-6px_-6px_16px_rgba(255,255,255,0.9)] dark:shadow-none text-slate-900 dark:text-white" aria-label={title}>
       <div className="market-heading">
         <div>
           <h2>
@@ -186,7 +186,7 @@ export default function MarketTable({
                 const flashClass = flash === 'up' ? 'flash-up' : flash === 'down' ? 'flash-down' : '';
 
                 return (
-                  <tr key={coin.id}>
+                  <tr key={coin.id} className="transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg cursor-pointer">
                     <td className="watch-cell">
                       <WatchButton coin={coin} />
                     </td>
@@ -195,12 +195,12 @@ export default function MarketTable({
                       <Link to={`/coin/${coin.id}`} className="table-coin">
                         <CoinAvatar coin={coin} />
                         <span>
-                          <strong>{coin.name}</strong>
+                          <strong className="text-slate-900 dark:text-white">{coin.name}</strong>
                           <span className="coin-symbol">{coin.symbol}</span>
                         </span>
                       </Link>
                     </td>
-                    <td className="numeric price-col py-4 px-4 text-right font-medium text-white tabular-nums w-[160px] min-w-[160px]">
+                    <td className="numeric price-col py-4 px-4 text-right font-medium text-slate-900 dark:text-white tabular-nums w-[160px] min-w-[160px]">
                       <span className={`inline-block transition-colors duration-500 tabular-nums ${flashClass}`}>
                         {price(coin.price)}
                       </span>

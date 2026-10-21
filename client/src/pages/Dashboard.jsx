@@ -69,21 +69,24 @@ export default function Dashboard() {
 
       <StatsGrid />
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start mb-8">
-        {/* LEFT COLUMN: Candlestick Chart (lg:col-span-8) */}
-        <div className="lg:col-span-8 bg-[#0D1117] border border-white/5 rounded-2xl p-5 flex flex-col justify-between">
-          {/* Chart Header (Asset info, Live Feed pill, Timeframes) */}
-          <div className="h-[520px] w-full relative">
-            <CandleChart
-              coin={featuredCoin}
-              coinId={featuredCoin?.id || 'bitcoin'}
-              height={460}
-              showHeader={true}
-            />
+      {/* Tight vertical alignment with minimal margins */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 mt-4 items-start mb-6">
+        {/* Left Column - Chart */}
+        <div className="lg:col-span-8 flex flex-col gap-4">
+          <div className="bg-white dark:bg-[#0D1117] border border-slate-200/80 dark:border-white/5 shadow-[6px_6px_16px_rgba(163,177,198,0.25),-6px_-6px_16px_rgba(255,255,255,0.9)] dark:shadow-none text-slate-900 dark:text-white rounded-2xl p-4 flex flex-col justify-between">
+            {/* Chart Header (Asset info, Live Feed pill, Timeframes) */}
+            <div className="h-[490px] w-full relative">
+              <CandleChart
+                coin={featuredCoin}
+                coinId={featuredCoin?.id || 'bitcoin'}
+                height={435}
+                showHeader={true}
+              />
+            </div>
           </div>
         </div>
 
-        {/* RIGHT COLUMN: Stack of Market Movers + Compact Converter (lg:col-span-4) */}
+        {/* Right Column - Movers & Converter */}
         <div className="lg:col-span-4 flex flex-col gap-4">
           {/* Upper Right: Market Movers */}
           <MarketMovers />

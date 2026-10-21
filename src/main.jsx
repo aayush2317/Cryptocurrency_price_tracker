@@ -6,6 +6,7 @@ import '@fontsource/inter/latin-500.css';
 import '@fontsource/inter/latin-600.css';
 import '@fontsource/inter/latin-700.css';
 import './styles.css';
+import './neumorphism.css';
 
 // Guard against third-party extension and MetaMask inpage.js uncaught rejections
 if (typeof window !== 'undefined') {

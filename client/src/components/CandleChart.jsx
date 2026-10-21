@@ -3,6 +3,7 @@ import { createChart, CandlestickSeries, ColorType, CrosshairMode } from 'lightw
 import api from '../services/api';
 import { subscribeToCandles } from '../services/socket';
 import { price } from '../utils/format';
+import { useTheme } from '../context/ThemeContext';
 import Icon from './ui/Icon';
 
 const TIMEFRAMES = [
@@ -17,6 +18,8 @@ export default function CandleChart({ coin, height = 340, showHeader = true }) {
   const containerRef = useRef(null);
   const chartRef = useRef(null);
   const seriesRef = useRef(null);
+  const { theme } = useTheme();
+  const isLight = theme === 'light';
 
   const [timeframe, setTimeframe] = useState('1m');
   const [loading, setLoading] = useState(true);
@@ -88,14 +91,14 @@ export default function CandleChart({ coin, height = 340, showHeader = true }) {
       width: containerRef.current.clientWidth || 640,
       height: height,
       layout: {
-        background: { type: ColorType.Solid, color: '#0D1117' },
-        textColor: '#8B949E',
+        background: { type: ColorType.Solid, color: isLight ? '#FFFFFF' : '#0D1117' },
+        textColor: isLight ? '#475569' : '#8B949E',
         fontSize: 12,
         fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
       },
       grid: {
-        vertLines: { color: 'rgba(255, 255, 255, 0.04)' },
-        horzLines: { color: 'rgba(255, 255, 255, 0.04)' },
+        vertLines: { color: isLight ? 'rgba(0, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.04)' },
+        horzLines: { color: isLight ? 'rgba(0, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.04)' },
       },
       crosshair: {
         mode: CrosshairMode.Normal,
@@ -111,7 +114,7 @@ export default function CandleChart({ coin, height = 340, showHeader = true }) {
         },
       },
       rightPriceScale: {
-        borderColor: 'rgba(255, 255, 255, 0.08)',
+        borderColor: isLight ? 'rgba(0, 0, 0, 0.08)' : 'rgba(255, 255, 255, 0.08)',
         autoScale: true,
         scaleMargins: {
           top: 0.1,
@@ -119,7 +122,7 @@ export default function CandleChart({ coin, height = 340, showHeader = true }) {
         },
       },
       timeScale: {
-        borderColor: 'rgba(255, 255, 255, 0.08)',
+        borderColor: isLight ? 'rgba(0, 0, 0, 0.08)' : 'rgba(255, 255, 255, 0.08)',
         timeVisible: true,
         secondsVisible: false,
         barSpacing: 14,
@@ -182,6 +185,28 @@ export default function CandleChart({ coin, height = 340, showHeader = true }) {
     };
   }, [coinId, height]); // Re-create if coinId or height changes
 
+  // Dynamically adapt chart background, grid, and text colors when theme changes
+  useEffect(() => {
+    if (!chartRef.current) return;
+    const isLightMode = theme === 'light';
+    chartRef.current.applyOptions({
+      layout: {
+        background: { type: ColorType.Solid, color: isLightMode ? '#FFFFFF' : '#0D1117' },
+        textColor: isLightMode ? '#475569' : '#8B949E',
+      },
+      grid: {
+        vertLines: { color: isLightMode ? 'rgba(0, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.04)' },
+        horzLines: { color: isLightMode ? 'rgba(0, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.04)' },
+      },
+      rightPriceScale: {
+        borderColor: isLightMode ? 'rgba(0, 0, 0, 0.08)' : 'rgba(255, 255, 255, 0.08)',
+      },
+      timeScale: {
+        borderColor: isLightMode ? 'rgba(0, 0, 0, 0.08)' : 'rgba(255, 255, 255, 0.08)',
+      },
+    });
+  }, [theme]);
+
   // Fetch new candles when timeframe changes
   useEffect(() => {
     if (seriesRef.current && chartRef.current) {
@@ -237,28 +262,28 @@ export default function CandleChart({ coin, height = 340, showHeader = true }) {
   return (
     <div className="candle-chart-wrapper">
       {showHeader && (
-        <div className="candle-chart-header flex items-center justify-between flex-wrap gap-3">
-          <div className="flex items-center gap-4 flex-wrap">
-            <span className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+        <div className="candle-chart-header flex items-center justify-between flex-wrap gap-2 py-1.5 px-3">
+          <div className="flex items-center gap-3 flex-wrap">
+            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
               Live Exchange Feed
             </span>
             {displayBar && (
-              <div className="text-xs font-mono text-gray-400 flex items-center gap-4 tabular-nums">
-                <span>O: <strong className="text-white tabular-nums">{price(displayBar.open)}</strong></span>
-                <span>H: <strong className="text-emerald-400 tabular-nums">{price(displayBar.high)}</strong></span>
-                <span>L: <strong className="text-rose-400 tabular-nums">{price(displayBar.low)}</strong></span>
-                <span>C: <strong className={isUp ? 'text-emerald-400 tabular-nums' : 'text-rose-400 tabular-nums'}>{price(displayBar.close)}</strong></span>
+              <div className="text-xs font-mono text-slate-600 dark:text-gray-400 flex items-center gap-3 tabular-nums">
+                <span>O: <strong className="text-slate-900 dark:text-white tabular-nums">{price(displayBar.open)}</strong></span>
+                <span>H: <strong className="text-emerald-600 dark:text-emerald-400 tabular-nums">{price(displayBar.high)}</strong></span>
+                <span>L: <strong className="text-rose-600 dark:text-rose-400 tabular-nums">{price(displayBar.low)}</strong></span>
+                <span>C: <strong className={isUp ? 'text-emerald-600 dark:text-emerald-400 tabular-nums' : 'text-rose-600 dark:text-rose-400 tabular-nums'}>{price(displayBar.close)}</strong></span>
               </div>
             )}
           </div>
 
-          <div className="candle-timeframe-selector" role="group" aria-label="Candlestick timeframe">
+          <div className="candle-timeframe-selector p-0.5 gap-1" role="group" aria-label="Candlestick timeframe">
             {TIMEFRAMES.map((tf) => (
               <button
                 key={tf.value}
                 onClick={() => setTimeframe(tf.value)}
-                className={`tf-button ${timeframe === tf.value ? 'selected' : ''}`}
+                className={`tf-button py-1 px-2 text-[11px] ${timeframe === tf.value ? 'selected' : ''}`}
                 aria-pressed={timeframe === tf.value}
                 disabled={loading && timeframe === tf.value}
               >
@@ -267,11 +292,11 @@ export default function CandleChart({ coin, height = 340, showHeader = true }) {
             ))}
             <button
               onClick={() => chartRef.current?.timeScale().fitContent()}
-              className="tf-button tf-fit"
+              className="tf-button tf-fit py-1 px-2 text-[11px]"
               title="Fit chart content"
               aria-label="Fit timeframe"
             >
-              <Icon name="search" size={12} />
+              <Icon name="search" size={11} />
               Fit
             </button>
           </div>

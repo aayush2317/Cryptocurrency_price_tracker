@@ -10,6 +10,11 @@ export default function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Ensure dark theme is set on initial login view
+    document.documentElement.dataset.theme = 'dark';
+    document.documentElement.classList.add('dark');
+    document.documentElement.classList.remove('light');
+
     // If already logged in, redirect to dashboard
     if (typeof window !== 'undefined' && localStorage.getItem('cp_auth') === 'true') {
       navigate('/', { replace: true });
@@ -24,6 +29,10 @@ export default function Login() {
     setTimeout(() => {
       if (username.trim() === 'admin' && password === 'cryptopulse2026') {
         localStorage.setItem('cp_auth', 'true');
+        localStorage.setItem('cp_theme', 'dark');
+        document.documentElement.dataset.theme = 'dark';
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
         navigate('/', { replace: true });
       } else {
         setError('Invalid username or password. Please use the demo credentials below.');
