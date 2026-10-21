@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "@fontsource/inter": "^5.2.0",
+    "bcryptjs": "^2.4.3",
     "cryptocurrency-icons": "^0.18.1",
     "lucide-react": "^0.468.0",
+    "pg": "^8.13.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.2",
