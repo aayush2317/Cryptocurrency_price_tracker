@@ -187,6 +187,9 @@ export default function AppLayout() {
               <Icon name={theme === 'light' ? 'moon' : 'sun'} size={17} />
               <span className="theme-toggle-label">{theme === 'light' ? 'Dark' : 'Light'}</span>
             </button>
+            <Link to="/login" className="header-signin">
+  Sign in
+</Link>
             <span className="data-status">
               <span />
               Demo mode

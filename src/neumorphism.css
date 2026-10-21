@@ -749,3 +749,43 @@ html[data-theme="dark"] .toast {
   html[data-theme="dark"] .stat-card:hover,
   html[data-theme="dark"] .watch-summary:hover { transform: none; }
 }
+/* Dashboard Sign In button */
+
+.header-signin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 15px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  background: var(--green);
+  color: #102c27;
+}
+
+html[data-theme="light"] .header-signin {
+  color: white;
+  background: #008c79;
+  box-shadow:
+    3px 3px 8px #c3d1df,
+    -3px -3px 8px #ffffff;
+}
+
+html[data-theme="dark"] .header-signin {
+  background: #42d4b0;
+  color: #102c27;
+  box-shadow:
+    3px 3px 8px #131e27,
+    -3px -3px 8px #435760;
+}
+
+.header-signin:hover {
+  filter: brightness(1.07);
+}
+
+@media (max-width: 600px) {
+  .header-signin {
+    padding: 8px 10px;
+  }
+}

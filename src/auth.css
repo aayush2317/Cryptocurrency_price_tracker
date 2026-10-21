@@ -1,0 +1,128 @@
+
+.auth-page {
+  --auth-bg: #eaf0f7;
+  --auth-card: #eef3f9;
+  --auth-text: #263549;
+  --auth-muted: #65788d;
+  --auth-shadow:
+    8px 8px 18px #b8c5d4,
+    -8px -8px 18px #ffffff;
+
+  min-height: 100vh;
+  background: var(--auth-bg);
+  color: var(--auth-text);
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+html[data-theme="dark"] .auth-page {
+  --auth-bg: #202632;
+  --auth-card: #2a3442;
+  --auth-text: #f0f5fb;
+  --auth-muted: #a9b9ca;
+  --auth-shadow:
+    8px 8px 20px #111824,
+    -6px -6px 18px #374454;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  padding: 36px;
+  border-radius: 24px;
+  background: var(--auth-card);
+  box-shadow: var(--auth-shadow);
+}
+
+.auth-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--auth-text);
+  font-size: 21px;
+  font-weight: 700;
+  margin-bottom: 32px;
+}
+
+.auth-logo {
+  background: #00b99b;
+  color: white;
+  border-radius: 10px;
+  padding: 7px 12px;
+}
+
+.auth-card h1 {
+  font-size: 27px;
+  margin-bottom: 8px;
+}
+
+.auth-subtitle {
+  color: var(--auth-muted);
+  font-size: 14px;
+  margin-bottom: 28px;
+}
+
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-bottom: 18px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.auth-field input {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 11px;
+  outline-offset: 3px;
+  background: var(--auth-bg);
+  color: var(--auth-text);
+  box-shadow:
+    inset 3px 3px 7px rgba(0, 0, 0, 0.12),
+    inset -3px -3px 7px rgba(255, 255, 255, 0.10);
+}
+
+.auth-submit {
+  width: 100%;
+  padding: 14px;
+  margin-top: 8px;
+  border: none;
+  border-radius: 11px;
+  background: #00ae93;
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.auth-submit:hover {
+  background: #008e79;
+}
+
+.auth-switch,
+.auth-back {
+  display: block;
+  text-align: center;
+  margin-top: 22px;
+  font-size: 13px;
+  color: var(--auth-muted);
+}
+
+.auth-switch a {
+  color: #00ae93;
+  font-weight: 700;
+}
+
+.auth-message {
+  font-size: 13px;
+  color: var(--auth-muted);
+  margin-bottom: 12px;
+}
+
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 24px;
+  }
+}
