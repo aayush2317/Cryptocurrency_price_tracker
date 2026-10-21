@@ -1,0 +1,23 @@
+{
+  "name": "cryptopulse-server",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "cross-env PORT=5000 node index.js",
+    "dev": "cross-env PORT=5000 node --watch index.js"
+  },
+  "dependencies": {
+    "@prisma/client": "^7.10.1",
+    "axios": "^1.20.0",
+    "cors": "^2.8.6",
+    "cross-env": "^10.1.0",
+    "express": "^5.3.0",
+    "node-cron": "^4.6.0",
+    "socket.io": "^4.8.4",
+    "ws": "^8.22.0"
+  },
+  "devDependencies": {
+    "prisma": "^7.10.1"
+  }
+}

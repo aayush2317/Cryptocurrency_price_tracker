@@ -1,0 +1,41 @@
+// CryptoPulse Database Schema
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Coin {
+  id                String   @id
+  name              String
+  symbol            String
+  price             Float
+  marketCap         Float
+  volume24h         Float
+  change24h         Float
+  sparkline         String   // JSON stringified array of prices
+  ath               Float?
+  circulatingSupply Float?
+  maxSupply         Float?
+  rank              Int?
+  category          String?
+  high24h           Float?
+  low24h            Float?
+  description       String?
+  lastUpdated       DateTime @default(now())
+
+  @@map("coins")
+}
+
+model Watchlist {
+  id        String   @id @default(cuid())
+  userId    String
+  coinId    String
+  createdAt DateTime @default(now())
+
+  @@unique([userId, coinId])
+  @@map("watchlists")
+}

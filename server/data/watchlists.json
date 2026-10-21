@@ -1,0 +1,9 @@
+{
+  "default-user": [
+    "bitcoin",
+    "ethereum",
+    "solana",
+    "cardano",
+    "bnb"
+  ]
+}

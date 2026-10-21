@@ -1,0 +1,308 @@
+// Deliberately static sample data. No market-data API is connected.
+export const SNAPSHOT_DATE = 'October 2, 2026';
+export const marketStats = [
+  {
+    label: 'Total market cap',
+    value: '$2.48T',
+    change: 2.34,
+    note: 'Global cryptocurrency market',
+    kind: 'market',
+  },
+  {
+    label: '24h trading volume',
+    value: '$84.62B',
+    change: 8.12,
+    note: 'Across all exchanges',
+    kind: 'volume',
+  },
+  {
+    label: 'Bitcoin dominance',
+    value: '54.2%',
+    change: 0.42,
+    note: 'Share of total market cap',
+    kind: 'dominance',
+  },
+];
+const definitions = [
+  [
+    'bitcoin',
+    'Bitcoin',
+    'BTC',
+    67432.8,
+    2.34,
+    1335000000000,
+    28460000000,
+    19800000,
+    21000000,
+    73750.07,
+    'Layer 1',
+    '#f7931a',
+  ],
+  [
+    'ethereum',
+    'Ethereum',
+    'ETH',
+    3521.64,
+    1.87,
+    423180000000,
+    15240000000,
+    120163000,
+    null,
+    4878.26,
+    'Layer 1',
+    '#8494ed',
+  ],
+  [
+    'tether',
+    'Tether',
+    'USDT',
+    1.0002,
+    0.01,
+    112480000000,
+    51270000000,
+    112457508498,
+    null,
+    1.32,
+    'Stablecoins',
+    '#26a17b',
+  ],
+  [
+    'bnb',
+    'BNB',
+    'BNB',
+    598.42,
+    -0.84,
+    88340000000,
+    1480000000,
+    147622092,
+    200000000,
+    717.48,
+    'Layer 1',
+    '#f3ba2f',
+  ],
+  [
+    'solana',
+    'Solana',
+    'SOL',
+    172.86,
+    5.42,
+    79700000000,
+    3640000000,
+    461066759,
+    null,
+    259.96,
+    'Layer 1',
+    '#a88bf5',
+  ],
+  [
+    'usd-coin',
+    'USDC',
+    'USDC',
+    0.9999,
+    -0.01,
+    32620000000,
+    6870000000,
+    32623262326,
+    null,
+    1.17,
+    'Stablecoins',
+    '#2775ca',
+  ],
+  [
+    'xrp',
+    'XRP',
+    'XRP',
+    0.5284,
+    -1.26,
+    29260000000,
+    1120000000,
+    55374716124,
+    100000000000,
+    3.84,
+    'Layer 1',
+    '#dce0e5',
+  ],
+  [
+    'dogecoin',
+    'Dogecoin',
+    'DOGE',
+    0.1423,
+    3.62,
+    20680000000,
+    897000000,
+    145326774420,
+    null,
+    0.7316,
+    'Meme coins',
+    '#c5a456',
+  ],
+  [
+    'toncoin',
+    'Toncoin',
+    'TON',
+    7.18,
+    4.21,
+    17460000000,
+    426000000,
+    2431754875,
+    null,
+    8.25,
+    'Layer 1',
+    '#0098ea',
+  ],
+  [
+    'cardano',
+    'Cardano',
+    'ADA',
+    0.4528,
+    -2.16,
+    16140000000,
+    312000000,
+    35644876325,
+    45000000000,
+    3.1,
+    'Layer 1',
+    '#3777e5',
+  ],
+  [
+    'avalanche',
+    'Avalanche',
+    'AVAX',
+    36.24,
+    6.78,
+    14230000000,
+    524000000,
+    392660044,
+    720000000,
+    144.96,
+    'Layer 1',
+    '#e84142',
+  ],
+  [
+    'chainlink',
+    'Chainlink',
+    'LINK',
+    17.82,
+    4.93,
+    10840000000,
+    428000000,
+    608305274,
+    1000000000,
+    52.88,
+    'DeFi',
+    '#2a5ada',
+  ],
+  [
+    'polkadot',
+    'Polkadot',
+    'DOT',
+    6.42,
+    -3.48,
+    9220000000,
+    198000000,
+    1436137071,
+    null,
+    54.98,
+    'Layer 1',
+    '#e6007a',
+  ],
+  [
+    'uniswap',
+    'Uniswap',
+    'UNI',
+    10.58,
+    8.26,
+    6340000000,
+    287000000,
+    599243856,
+    1000000000,
+    44.92,
+    'DeFi',
+    '#ff65bd',
+  ],
+  [
+    'near',
+    'NEAR Protocol',
+    'NEAR',
+    6.84,
+    7.12,
+    7460000000,
+    352000000,
+    1090643275,
+    null,
+    20.44,
+    'Layer 1',
+    '#b8ebd1',
+  ],
+  [
+    'pepe',
+    'Pepe',
+    'PEPE',
+    0.00001184,
+    -4.72,
+    4980000000,
+    718000000,
+    420608108108108,
+    420690000000000,
+    0.00001717,
+    'Meme coins',
+    '#70ad51',
+  ],
+];
+export const coins = definitions.map((d, i) => ({
+  id: d[0],
+  name: d[1],
+  symbol: d[2],
+  price: d[3],
+  change: d[4],
+  marketCap: d[5],
+  volume: d[6],
+  circulatingSupply: d[7],
+  maxSupply: d[8],
+  ath: d[9],
+  category: d[10],
+  color: d[11],
+  rank: i + 1,
+}));
+export const trendingIds = ['bitcoin', 'solana', 'ethereum', 'chainlink', 'near'];
+export const categories = ['All assets', 'Layer 1', 'DeFi', 'Stablecoins', 'Meme coins'];
+export const periods = ['24H', '7D', '1M', '3M', '1Y', 'ALL'];
+export function createHistory(coin, period = '7D', points = 84) {
+  const days = { '24H': 1, '7D': 7, '1M': 30, '3M': 90, '1Y': 365, ALL: 1095 }[period] || 7;
+  const growth = {
+    '24H': coin.change / 100,
+    '7D': (coin.change / 100) * 2.4,
+    '1M': 0.142,
+    '3M': 0.265,
+    '1Y': 0.61,
+    ALL: 1.24,
+  }[period];
+  const start = coin.price / (1 + growth);
+  const endTime = Date.UTC(2026, 9, 2, 16);
+  let seed = coin.rank * 199 + days;
+  const random = () => {
+    seed = (seed * 16807) % 2147483647;
+    return (seed - 1) / 2147483646;
+  };
+  let noise = 0;
+  return Array.from({ length: points }, (_, i) => {
+    const t = i / (points - 1);
+    noise = noise * 0.65 + (random() - 0.48) * coin.price * 0.014;
+    const wave =
+      Math.sin(t * Math.PI * 8) * coin.price * 0.008 +
+      Math.sin(t * Math.PI * 19) * coin.price * 0.004;
+    const price =
+      i === points - 1
+        ? coin.price
+        : start + (coin.price - start) * t + (noise + wave) * Math.sin(Math.PI * t);
+    return { timestamp: endTime - days * 86400000 * (1 - t), price: Number(price.toPrecision(8)) };
+  });
+}
+export const descriptions = {
+  bitcoin:
+    'Bitcoin is a decentralized digital currency with a fixed maximum supply of 21 million coins. Its network uses proof of work to verify transactions without a central authority.',
+  ethereum:
+    'Ethereum is a decentralized blockchain platform for smart contracts and applications. Ether is its native currency, used to pay transaction fees and help secure the network.',
+  solana:
+    'Solana is a blockchain designed for fast transactions and decentralized applications. SOL is used for transaction fees and staking on the network.',
+};
