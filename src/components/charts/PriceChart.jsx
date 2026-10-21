@@ -32,7 +32,11 @@ function ChartTooltip({ active, payload, label }) {
     </div>
   );
 }
-export default function PriceChart({ coin, detail = false }) {
+export default function PriceChart({  coin,
+  detail = false,
+  livePrice, }) {
+  const hasLivePrice =
+  Number.isFinite(livePrice) && livePrice > 0;
   const [period, setPeriod] = useState('7D');
   const gradientId = useId().replace(/:/g, '');
   const data = useMemo(() => createHistory(coin, period), [coin, period]);
@@ -59,7 +63,18 @@ export default function PriceChart({ coin, detail = false }) {
       </div>
       <div className="chart-summary">
         <div>
-          <strong className="chart-price">{price(coin.price)}</strong>
+          <strong className="chart-price"> {price(hasLivePrice ? livePrice : coin.price)}</strong>
+          {hasLivePrice && (
+  <small
+    style={{
+      display: "block",
+      marginTop: "5px",
+      color: "var(--muted)",
+    }}
+  >
+    Simulated live price · Chart and percentage use sample history
+  </small>
+)}
           <div className="chart-gain">
             <ChangeBadge value={gain} />
             <span>

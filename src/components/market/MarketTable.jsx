@@ -10,6 +10,7 @@ import Sparkline from '../charts/Sparkline';
 const PAGE_SIZE = 8;
 export default function MarketTable({
   coins,
+  livePrices = {},
   title = 'Cryptocurrency prices',
   subtitle = 'A closer look at the market.',
   initialQuery = '',
@@ -166,7 +167,7 @@ export default function MarketTable({
                     </span>
                   </Link>
                 </td>
-                <td className="numeric coin-price">{price(coin.price)}</td>
+                <td className="numeric coin-price"> {price(livePrices[coin.id] ?? coin.price)}</td>
                 <td className="numeric">
                   <ChangeBadge value={coin.change} />
                 </td>

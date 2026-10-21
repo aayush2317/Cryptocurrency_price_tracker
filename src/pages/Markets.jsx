@@ -3,7 +3,7 @@ import { coins } from '../data/coins';
 import PageHeading from '../components/ui/PageHeading';
 import StatsGrid from '../components/market/StatsGrid';
 import MarketTable from '../components/market/MarketTable';
-export default function Markets() {
+export default function Markets({ livePrices }) {
   const [params] = useSearchParams();
   return (
     <>
@@ -16,6 +16,7 @@ export default function Markets() {
       <StatsGrid />
       <MarketTable
         coins={coins}
+        livePrices={livePrices}
         title="All cryptocurrencies"
         subtitle="Browse by category or sort by the numbers that matter."
         initialQuery={params.get('q') || ''}

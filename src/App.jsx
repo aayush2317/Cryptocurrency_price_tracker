@@ -7,14 +7,18 @@ import CoinDetails from './pages/CoinDetails';
 import Watchlist from './pages/Watchlist';
 import NotFound from './pages/NotFound';
 import useWebMCP from './hooks/useWebMCP';
+import useCryptoWebSocket from "./hooks/useCryptoWebSocket";
 function AppRoutes() {
   useWebMCP();
+  const livePrices = useCryptoWebSocket();
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<AppLayout />}>
-          <Route index element={<Dashboard />} />
-          <Route path="markets" element={<Markets />} />
+          <Route index
+  element={<Dashboard livePrices={livePrices} />}/>
+          <Route  path="markets"
+  element={<Markets livePrices={livePrices} />} />
           <Route path="coin/:coinId" element={<CoinDetails />} />
           <Route path="watchlist" element={<Watchlist />} />
           <Route path="*" element={<NotFound />} />

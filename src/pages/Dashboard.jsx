@@ -6,7 +6,7 @@ import PriceChart from '../components/charts/PriceChart';
 import MarketMovers from '../components/market/MarketMovers';
 import MarketTable from '../components/market/MarketTable';
 import Icon from '../components/ui/Icon';
-export default function Dashboard() {
+export default function Dashboard({ livePrices }) {
   return (
     <>
       <PageHeading
@@ -27,7 +27,8 @@ export default function Dashboard() {
       />
       <StatsGrid />
       <div className="overview-grid">
-        <PriceChart coin={coins[0]} />
+        <PriceChart coin={coins[0]} 
+         livePrice={livePrices.bitcoin}/>
         <MarketMovers />
       </div>
       <div className="section-label-row">
@@ -41,7 +42,8 @@ export default function Dashboard() {
       </div>
       <MarketTable
         coins={coins}
-        subtitle="Explore prices, spot trends, and follow your next move."
+  livePrices={livePrices}
+  subtitle="Explore prices, spot trends, and follow your next move."
       />
     </>
   );
