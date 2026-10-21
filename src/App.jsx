@@ -7,11 +7,15 @@ import CoinDetails from './pages/CoinDetails';
 import Watchlist from './pages/Watchlist';
 import NotFound from './pages/NotFound';
 import useWebMCP from './hooks/useWebMCP';
+import AuthPage from "./pages/AuthPage";
 function AppRoutes() {
   useWebMCP();
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/login" element={<AuthPage mode="login" />} />
+<Route path="/signup" element={<AuthPage mode="signup" />} />
+
         <Route element={<AppLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="markets" element={<Markets />} />
